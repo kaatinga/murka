@@ -1,7 +1,7 @@
-package localErrors
+package murka
 
 import cerr "github.com/kaatinga/const-errs"
 
 const (
-	ErrIncorrectCharacter = cerr.Error("page path contain an incorrect symbol")
+	ErrIncorrectCharacter = cerr.Error("input string contains an incorrect character")
 )
