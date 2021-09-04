@@ -1,5 +1,5 @@
 # murka
-A high performance string validator. The package is intended to check incorrect characters' existence in a string.
+A high performance string validator. The package is intended for checking incorrect characters' existence in a string.
 20 times faster than regexp package and 10 times faster than unicode package.
 
 Benchmark run with Go 1.17:
