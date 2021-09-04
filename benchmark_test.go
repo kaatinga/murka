@@ -1,33 +1,33 @@
-package main
+package murka
 
 import "testing"
 
-func BenchmarkValidatePagePath(b *testing.B) {
+func BenchmarkValidate(b *testing.B) {
 
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
-		validatePagePath("test")
-		validatePagePath("12345")
-		validatePagePath("TEST_PAGE")
+		Validate("test")
+		Validate("12345")
+		Validate("TEST_PAGE", CheckUnderscore)
 	}
 }
 
-func BenchmarkValidatePagePath2(b *testing.B) {
+func BenchmarkValidateByRegexp(b *testing.B) {
 
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
-		validatePagePath2("test")
-		validatePagePath2("12345")
-		validatePagePath2("TEST_PAGE")
+		validateByRegexp("test")
+		validateByRegexp("12345")
+		validateByRegexp("TEST_PAGE")
 	}
 }
 
-func BenchmarkValidatePagePath3(b *testing.B) {
+func BenchmarkValidateByUnicode(b *testing.B) {
 
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
-		validatePagePath3("test")
-		validatePagePath3("12345")
-		validatePagePath3("TEST_PAGE")
+		validateByUnicode("test")
+		validateByUnicode("12345")
+		validateByUnicode("TEST_PAGE")
 	}
 }
