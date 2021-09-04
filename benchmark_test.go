@@ -2,6 +2,7 @@ package murka
 
 import "testing"
 
+// nolint
 func BenchmarkValidate(b *testing.B) {
 
 	b.ReportAllocs()
@@ -12,6 +13,7 @@ func BenchmarkValidate(b *testing.B) {
 	}
 }
 
+// nolint
 func BenchmarkValidateByRegexp(b *testing.B) {
 
 	b.ReportAllocs()
@@ -22,6 +24,7 @@ func BenchmarkValidateByRegexp(b *testing.B) {
 	}
 }
 
+// nolint
 func BenchmarkValidateByUnicode(b *testing.B) {
 
 	b.ReportAllocs()
