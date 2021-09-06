@@ -151,3 +151,35 @@ func Test_validatePagePath3(t *testing.T) {
 		})
 	}
 }
+
+// CheckUnderscore checks underscore character.
+func CheckSlash(value rune) bool {
+	return value == '/'
+}
+
+func Test_validatePagePath4(t *testing.T) {
+
+	tests := []struct {
+		pagePath string
+		wantErr  error
+	}{
+		{"test_page", nil},
+		{"1", nil},
+		{"p1", nil},
+		{"aZ", nil},
+		{"AZ", nil},
+		{"19", nil},
+		{"p_1", nil},
+		{"/", nil},
+		{"ы", ErrIncorrectCharacter},
+		{"-", ErrIncorrectCharacter},
+		{".", ErrIncorrectCharacter},
+	}
+	for _, tt := range tests {
+		t.Run(tt.pagePath, func(t *testing.T) {
+			if err := Validate(tt.pagePath, CheckUnderscore, CheckSlash); err != tt.wantErr {
+				t.Errorf("validatePagePath() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
