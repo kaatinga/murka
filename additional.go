@@ -13,10 +13,10 @@ func runAdditionalChecks(value rune, additionalCheckers ...func(value rune) bool
 	}
 
 	for _, check := range additionalCheckers {
-		if !check(value) {
-			return false
+		if check(value) {
+			return true
 		}
 	}
 
-	return true
+	return false
 }
