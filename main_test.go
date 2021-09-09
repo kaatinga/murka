@@ -160,7 +160,6 @@ func TestReplace(t *testing.T) {
 		character          rune
 		additionalCheckers []func(value rune) bool
 		want               string
-		wantErr            bool
 	}{
 		{
 			"ok",
@@ -168,16 +167,12 @@ func TestReplace(t *testing.T) {
 			'_',
 			[]func(value rune) bool{CheckUnderscore},
 			"File_Test_09_29_2008_mac",
-			false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := Replace(tt.text, tt.character, tt.additionalCheckers...)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Replace() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
+			got := Replace(tt.text, tt.character, tt.additionalCheckers...)
+
 			if got != tt.want {
 				t.Errorf("Replace() got = %v, want %v", got, tt.want)
 			}
