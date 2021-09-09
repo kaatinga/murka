@@ -16,7 +16,7 @@ func Validate(text string, additionalCheckers ...func(value rune) bool) error {
 }
 
 // Replace replaces incorrect characters in the input string. The default charset is a-zA-Z0-9.
-func Replace(text string, character rune, additionalCheckers ...func(value rune) bool) (string, error) {
+func Replace(text string, character rune, additionalCheckers ...func(value rune) bool) string {
 
 	// we repeat the size of the new string
 	var newString = make([]rune, len(text))
@@ -32,5 +32,5 @@ func Replace(text string, character rune, additionalCheckers ...func(value rune)
 		}
 	}
 
-	return string(newString), nil
+	return string(newString)
 }
