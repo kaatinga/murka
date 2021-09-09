@@ -151,3 +151,36 @@ func Test_validatePagePath3(t *testing.T) {
 		})
 	}
 }
+
+func TestReplace(t *testing.T) {
+
+	tests := []struct {
+		name               string
+		text               string
+		character          rune
+		additionalCheckers []func(value rune) bool
+		want               string
+		wantErr            bool
+	}{
+		{
+			"ok",
+			"File-Test 09:29:2008 mac",
+			'_',
+			[]func(value rune) bool{CheckUnderscore},
+			"File_Test_09_29_2008_mac",
+			false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := Replace(tt.text, tt.character, tt.additionalCheckers...)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Replace() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("Replace() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
