@@ -50,3 +50,7 @@ if err != nil {
     return err
 }
 ```
+
+`Replace()` checks only a-z, A-z and 0-9 characters. Like with `Validate()`, additional checks are done by functions
+that comply with `func (value rune) bool`. `Replace()` does not return any error, but substitute incorrect characters
+with the input character of rune type.
