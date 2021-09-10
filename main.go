@@ -25,7 +25,7 @@ func Replace(text string, character rune, additionalCheckers ...func(value rune)
 		if !(text[i] >= 0x61 && text[i] <= 0x7A || // lowercase
 			text[i] >= 0x41 && text[i] <= 0x5A || // uppercase
 			text[i] >= 0x30 && text[i] <= 0x39 || // digits
-			runAdditionalChecks(rune(text[i]), additionalCheckers...)) {
+			runAdditionalChecks(newString[i], additionalCheckers...)) {
 			newString[i] = character
 		}
 	}
