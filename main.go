@@ -32,3 +32,21 @@ func Replace(text string, character rune, additionalCheckers ...func(value rune)
 
 	return string(newString)
 }
+
+// ReplaceNotaZ09 replaces not a-zA-Z0-9 characters in the input string ny in input character.
+// The most efficient way to sanitize a string using a-zA-Z0-9<character> pattern.
+func ReplaceNotaZ09(text string, character rune) string {
+
+	// we repeat the size of the new string
+	var newString = []rune(text)
+
+	for i := 0; i < len(text); i++ {
+		if !(newString[i] >= 0x61 && newString[i] <= 0x7A || // lowercase
+			newString[i] >= 0x41 && newString[i] <= 0x5A || // uppercase
+			newString[i] >= 0x30 && newString[i] <= 0x39) { // digits
+			newString[i] = character
+		}
+	}
+
+	return string(newString)
+}
