@@ -31,7 +31,7 @@ Prepare an additional function like this:
 ```go
 // CheckUnderscore checks underscore character.
 func CheckUnderscore(value rune) bool {
-return value == 0x5f
+    return value == 0x5f
 }
 ```
 
@@ -40,7 +40,7 @@ After that you can call `Validate()`.
 ```go
 err := murka.Validate(text, CheckUnderscore)
 if err != nil {
-return err
+    return err
 }
 ```
 
