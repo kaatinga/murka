@@ -176,6 +176,12 @@ func TestReplace(t *testing.T) {
 			if got != tt.want {
 				t.Errorf("Replace() got = %v, want %v", got, tt.want)
 			}
+
+			got = ReplaceNotaZ09(tt.text, tt.character)
+
+			if got != tt.want {
+				t.Errorf("ReplaceNotaZ09() got = %v, want %v", got, tt.want)
+			}
 		})
 	}
 }
