@@ -41,7 +41,7 @@ func Highlight(text, left, right, sample string) (string, error) {
 
 	sampleLength := uint16(len(sample))
 	if sampleLength > maximumLength {
-		return "", incorrectSampleLength(len(sample))
+		return "", incorrectSampleLength(sampleLength)
 	}
 
 	// stage 1: indexing
@@ -49,7 +49,7 @@ func Highlight(text, left, right, sample string) (string, error) {
 
 	var sampleFound bool
 	var currentSampleIndex byte
-	var lastSampleIndex = len(sampleAsRunes) - 1
+	var lastSampleIndex = sampleLength - 1
 	var howMany byte
 	var items uint64
 	var sampleIndex uint16
@@ -122,6 +122,11 @@ func Highlight(text, left, right, sample string) (string, error) {
 		}
 	}
 
+	if sections == 0 {
+		//fmt.Println("early finish")
+		return text, nil
+	}
+
 	// fmt.Println("key", key, "lastIndexInSample", lastIndexInSample)
 	if uint16(key)-lastIndexInSample > 0 {
 		sections++
@@ -149,7 +154,7 @@ func Highlight(text, left, right, sample string) (string, error) {
 		// we add sample
 		sampledText[currentSampleIndex] = left
 		currentSampleIndex++
-		sampledText[currentSampleIndex] = text[sampleIndex : sampleIndex+uint16(len(left))]
+		sampledText[currentSampleIndex] = text[sampleIndex : sampleIndex+sampleLength]
 		// fmt.Println("sample added", text[sampleIndex:sampleIndex+uint16(len(left))])
 
 		currentSampleIndex++
