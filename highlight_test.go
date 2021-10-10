@@ -1,31 +1,36 @@
 package murka
 
-import "testing"
+import (
+	"errors"
+	"testing"
+)
 
 func TestHighlight(t *testing.T) {
-	type args struct {
-		text   string
-		left   string
-		right  string
-		sample string
-	}
+
 	tests := []struct {
-		name    string
-		args    args
+		text    string
+		left    string
+		right   string
+		sample  string
 		want    string
-		wantErr bool
+		wantErr error
 	}{
-		// TODO: Add test cases.
+		{"christmas tree", "<b>", "</b>", "mas", "christ<b>mas</b> tree", nil},
+		{"christmas tree mas", "<b>", "</b>", "mas", "christ<b>mas</b> tree <b>mas</b>", nil},
+		{"mamase", "<b>", "</b>", "mas", "ma<b>mas</b>e", nil},
+		{"mase", "<b>", "</b>", "mas", "<b>mas</b>e", nil},
+		{"test string", "<b>", "</b>", "str", "test <b>str</b>ing", nil},
+		{"test string test string test string", "<b>", "</b>", "str", "test <b>str</b>ing test <b>str</b> <b>str</b>", nil},
 	}
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got, err := Highlight(tt.args.text, tt.args.left, tt.args.right, tt.args.sample)
-			if (err != nil) != tt.wantErr {
+		t.Run(tt.text, func(t *testing.T) {
+			got, err := Highlight(tt.text, tt.left, tt.right, tt.sample)
+			if !errors.Is(err, tt.wantErr) {
 				t.Errorf("Highlight() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if got != tt.want {
-				t.Errorf("Highlight() got = %v, want %v", got, tt.want)
+				t.Errorf("Highlight() got =\n%v\nwant =\n%v", got, tt.want)
 			}
 		})
 	}
