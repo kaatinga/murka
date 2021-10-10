@@ -22,10 +22,7 @@ func (length incorrectSampleLength) Error() string {
 const ErrIncorrectLength = cerr.Error("the sample exceeds the maximum")
 
 func (length incorrectSampleLength) Is(err error) bool {
-	if err == ErrIncorrectLength {
-		return true
-	}
-	return false
+	return err == ErrIncorrectLength
 }
 
 // Highlight takes in some content and locations and then inserts left/right, strings which can be used for
