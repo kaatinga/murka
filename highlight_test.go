@@ -15,10 +15,12 @@ func TestHighlight(t *testing.T) {
 		want    string
 		wantErr error
 	}{
-		{"christmas tree", "<b>", "</b>", "mas", "christ<b>mas</b> tree", nil},
+		{"christmas tree", "<strong>", "</strong>", "mas", "christ<strong>mas</strong> tree", nil},
 		{"christmas tree mas", "<b>", "</b>", "mas", "christ<b>mas</b> tree <b>mas</b>", nil},
 		{"mamase", "<b>", "</b>", "mas", "ma<b>mas</b>e", nil},
 		{"mase", "<b>", "</b>", "mas", "<b>mas</b>e", nil},
+		{"mase", "<b>", "</b>", "ggg", "mase", nil},
+		{"mase", "", "", "mas", "mase", nil},
 		{"test string", "<b>", "</b>", "str", "test <b>str</b>ing", nil},
 		{"test string test string test string", "<b>", "</b>", "str", "test <b>str</b>ing test <b>str</b> <b>str</b>", nil},
 	}
