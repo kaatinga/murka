@@ -95,6 +95,7 @@ func BenchmarkHighlight(b *testing.B) {
 		Highlight("test string", "<b>", "</b>", "str")
 		Highlight("mamase", "<b>", "</b>", "mas")
 		Highlight("mase", "<b>", "</b>", "mas")
+		Highlight("mase", "<b>", "</b>", "ggg")
 	}
 }
 
@@ -110,6 +111,9 @@ func BenchmarkGoString(b *testing.B) {
 		str.HighlightString("mamase", locations, "<b>", "</b>")
 
 		locations = str.IndexAll("mase", "mas", -1)
+		str.HighlightString("mase", locations, "<b>", "</b>")
+
+		locations = str.IndexAll("mase", "ggg", -1)
 		str.HighlightString("mase", locations, "<b>", "</b>")
 	}
 }
