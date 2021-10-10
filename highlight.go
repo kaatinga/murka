@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	maximumLength             = 1 << 8
+	maximumSampleLength       = 1 << 8
 	maximumHighlightedSamples = 1 << 2
 )
 
@@ -16,7 +16,7 @@ const (
 type incorrectSampleLength int
 
 func (length incorrectSampleLength) Error() string {
-	return "the sample length is " + strconv.Itoa(int(length)) + " what exceeds the maximum " + assets.Byte2String(maximumLength-1)
+	return "the sample length is " + strconv.Itoa(int(length)) + " what exceeds the maximum " + assets.Byte2String(maximumSampleLength-1)
 }
 
 const ErrIncorrectLength = cerr.Error("the sample exceeds the maximum")
@@ -40,7 +40,7 @@ func Highlight(text, left, right, sample string) (string, error) {
 	// FIXME: check the maximum right length
 
 	sampleLength := uint16(len(sample))
-	if sampleLength > maximumLength {
+	if sampleLength >= maximumSampleLength {
 		return "", incorrectSampleLength(sampleLength)
 	}
 
