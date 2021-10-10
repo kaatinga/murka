@@ -87,6 +87,7 @@ import (
 //	}
 //}
 
+// nolint
 func BenchmarkHighlight(b *testing.B) {
 
 	b.ReportAllocs()
@@ -97,6 +98,7 @@ func BenchmarkHighlight(b *testing.B) {
 	}
 }
 
+// nolint
 func BenchmarkGoString(b *testing.B) {
 
 	b.ReportAllocs()
