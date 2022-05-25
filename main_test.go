@@ -35,18 +35,15 @@ var ranges = []*unicode.RangeTable{
 
 // validateByUnicode checks symbols in the input string.
 func validateByUnicode(pagePath string) error {
-
 	for _, value := range pagePath {
 		if !unicode.IsOneOf(ranges, value) {
 			return ErrIncorrectCharacter
 		}
 	}
-
 	return nil
 }
 
 func Test_validatePagePath(t *testing.T) {
-
 	tests := []struct {
 		pagePath string
 		wantErr  error
@@ -75,7 +72,6 @@ func Test_validatePagePath(t *testing.T) {
 }
 
 func Test_Clean_validatePagePath(t *testing.T) {
-
 	tests := []struct {
 		pagePath string
 		wantErr  error
@@ -101,7 +97,6 @@ func Test_Clean_validatePagePath(t *testing.T) {
 }
 
 func Test_validatePagePath2(t *testing.T) {
-
 	tests := []struct {
 		pagePath string
 		wantErr  error
