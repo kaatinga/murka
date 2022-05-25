@@ -44,7 +44,7 @@ if err != nil {
 }
 ```
 
-Benchmark run with Go 1.17:
+Benchmarks:
 
 ```
 BenchmarkValidate
@@ -64,7 +64,7 @@ characters with the input character of rune type. There is no sense to use this 
 `ReplaceNotaZ09()` replaces all characters except a-z, A-z and 0-9. The most efficient way to sanitize a string using
 a-zA-Z0-9<input character> pattern.
 
-Benchmark run with Go 1.17.1:
+Benchmarks:
 
 ```
 BenchmarkReplace
