@@ -1,8 +1,8 @@
 package murka
 
 import (
-	"github.com/boyter/go-string"
 	"testing"
+	//"github.com/boyter/go-string"
 )
 
 //// nolint
@@ -100,20 +100,20 @@ func BenchmarkHighlight(b *testing.B) {
 }
 
 // nolint
-func BenchmarkGoString(b *testing.B) {
-
-	b.ReportAllocs()
-	for i := 0; i < b.N; i++ {
-		locations := str.IndexAll("test string", "str", -1)
-		str.HighlightString("test string", locations, "<b>", "</b>")
-
-		locations = str.IndexAll("mamase", "mas", -1)
-		str.HighlightString("mamase", locations, "<b>", "</b>")
-
-		locations = str.IndexAll("mase", "mas", -1)
-		str.HighlightString("mase", locations, "<b>", "</b>")
-
-		locations = str.IndexAll("mase", "ggg", -1)
-		str.HighlightString("mase", locations, "<b>", "</b>")
-	}
-}
+//func BenchmarkGoString(b *testing.B) {
+//
+//	b.ReportAllocs()
+//	for i := 0; i < b.N; i++ {
+//		locations := str.IndexAll("test string", "str", -1)
+//		str.HighlightString("test string", locations, "<b>", "</b>")
+//
+//		locations = str.IndexAll("mamase", "mas", -1)
+//		str.HighlightString("mamase", locations, "<b>", "</b>")
+//
+//		locations = str.IndexAll("mase", "mas", -1)
+//		str.HighlightString("mase", locations, "<b>", "</b>")
+//
+//		locations = str.IndexAll("mase", "ggg", -1)
+//		str.HighlightString("mase", locations, "<b>", "</b>")
+//	}
+//}

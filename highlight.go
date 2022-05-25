@@ -1,8 +1,8 @@
 package murka
 
 import (
-	"github.com/kaatinga/assets"
 	cerr "github.com/kaatinga/const-errs"
+	faststrconv "github.com/kaatinga/strconv"
 	"strconv"
 	"strings"
 )
@@ -16,7 +16,7 @@ const (
 type incorrectSampleLength int
 
 func (length incorrectSampleLength) Error() string {
-	return "the sample length is " + strconv.Itoa(int(length)) + " what exceeds the maximum " + assets.Byte2String(maximumSampleLength-1)
+	return "the sample length is " + strconv.Itoa(int(length)) + " what exceeds the maximum " + faststrconv.Byte2String(maximumSampleLength-1)
 }
 
 const ErrIncorrectLength = cerr.Error("the sample exceeds the maximum")

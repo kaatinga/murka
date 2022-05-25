@@ -1,6 +1,4 @@
-github.com/boyter/go-string v1.0.1 h1:BJ64WJNqnGJLw7lUVJqAiEp4EOtHcsS0FLxgbaEoJIs=
-github.com/boyter/go-string v1.0.1/go.mod h1:FwDE90PfycSIgg7twi8xvynURNo3WPM7allPfzeBciI=
-github.com/kaatinga/assets v1.1.1 h1:BJ3vv2Jlg9o2BnUEwn5gFJhPopNOrXSt+uVKlk6wVZM=
-github.com/kaatinga/assets v1.1.1/go.mod h1:PCWy68NCavR/bBE38zIvQnoYimdNZiKojhUP2/bWP6M=
 github.com/kaatinga/const-errs v1.0.0 h1:SLGCWZcfqXeRowK75riH1uhUEmyxelZ9ZGaxK33Pa3M=
 github.com/kaatinga/const-errs v1.0.0/go.mod h1:v4aBzObpEAb/ha35dIgohIFD8KCRHmPt76v8xu2v2zs=
+github.com/kaatinga/strconv v1.0.2 h1:fNd2cEnC/6/K2TkhLMZLA4KUP10R4lV+ZHI5jQFUSuU=
+github.com/kaatinga/strconv v1.0.2/go.mod h1:nGWHYzNneTBWTikd/bLFushHG7wF3C9Q0yYmDtII4fQ=
