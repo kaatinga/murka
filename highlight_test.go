@@ -6,7 +6,6 @@ import (
 )
 
 func TestHighlight(t *testing.T) {
-
 	tests := []struct {
 		text    string
 		left    string

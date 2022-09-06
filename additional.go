@@ -7,7 +7,6 @@ func CheckUnderscore(value rune) bool {
 
 // runAdditionalChecks uses additional functions to check input string.
 func runAdditionalChecks(value rune, additionalCheckers ...func(value rune) bool) bool {
-
 	if len(additionalCheckers) == 0 {
 		return false
 	}

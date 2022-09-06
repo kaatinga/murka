@@ -38,17 +38,16 @@ import (
 //	}
 //}
 
-// nolint
-//func BenchmarkReplace(b *testing.B) {
+// func BenchmarkReplace(b *testing.B) {
 //
 //	b.ReportAllocs()
 //	for i := 0; i < b.N; i++ {
 //		Replace("tes:t", '_')
 //		Replace("12:3:45", '_')
 //	}
-//}
+// }
 //
-//func BenchmarkReplaceNotAz09(b *testing.B) {
+// func BenchmarkReplaceNotAz09(b *testing.B) {
 //
 //	b.ReportAllocs()
 //	for i := 0; i < b.N; i++ {
@@ -57,9 +56,7 @@ import (
 //	}
 //}
 //
-//// nolint
-//func BenchmarkStringsReplace(b *testing.B) {
-//
+// func BenchmarkStringsReplace(b *testing.B) {
 //	b.ReportAllocs()
 //	for i := 0; i < b.N; i++ {
 //		strings.ReplaceAll("tes:t", ":", "_")
@@ -67,7 +64,7 @@ import (
 //	}
 //}
 //
-//var legalCharacters1 = func(value rune) rune {
+// var legalCharacters1 = func(value rune) rune {
 //	if !(value >= 0x61 && value <= 0x7A || // lowercase
 //		value >= 0x41 && value <= 0x5A || // uppercase
 //		value >= 0x30 && value <= 0x39) {
@@ -77,17 +74,16 @@ import (
 //	return value
 //}
 //
-//// nolint
-//func BenchmarkStringsMap(b *testing.B) {
+// func BenchmarkStringsMap(b *testing.B) {
 //
 //	b.ReportAllocs()
 //	for i := 0; i < b.N; i++ {
 //		strings.Map(legalCharacters1, "tes:t")
 //		strings.Map(legalCharacters1, "12:3:45")
 //	}
-//}
+// }
 
-// nolint
+//nolint
 func BenchmarkHighlight(b *testing.B) {
 
 	b.ReportAllocs()
@@ -99,7 +95,6 @@ func BenchmarkHighlight(b *testing.B) {
 	}
 }
 
-// nolint
 //func BenchmarkGoString(b *testing.B) {
 //
 //	b.ReportAllocs()

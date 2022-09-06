@@ -10,7 +10,6 @@ var re = regexp.MustCompile(`^[\w]+$`)
 
 // validateByRegexp checks symbols in the input string.
 func validateByRegexp(pagePath string) error {
-
 	if re.MatchString(pagePath) {
 		return nil
 	}
@@ -122,7 +121,6 @@ func Test_validatePagePath2(t *testing.T) {
 }
 
 func Test_validatePagePath3(t *testing.T) {
-
 	tests := []struct {
 		pagePath string
 		wantErr  error
@@ -148,7 +146,6 @@ func Test_validatePagePath3(t *testing.T) {
 }
 
 func TestReplace(t *testing.T) {
-
 	tests := []struct {
 		name               string
 		text               string

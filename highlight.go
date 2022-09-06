@@ -29,7 +29,6 @@ func (length incorrectSampleLength) Is(err error) bool {
 // highlighting around matching terms. For example, if you pass in "test" with sample "te", you will have
 // "<strong>te</strong>st" as return.
 func Highlight(text, left, right, sample string) (string, error) {
-
 	// if the both inserts are empty, we return the input text string
 	if len(left) == 0 && len(right) == 0 {
 		return text, nil
@@ -72,9 +71,7 @@ func Highlight(text, left, right, sample string) (string, error) {
 		}
 
 		if sampleFound {
-
 			if value != sampleAsRunes[currentSampleIndex] {
-
 				if value == sampleAsRunes[0] {
 					// fmt.Println("beginning found", string([]rune{value}))
 					currentSampleIndex = 1
@@ -143,8 +140,6 @@ func Highlight(text, left, right, sample string) (string, error) {
 
 	sampledText := make([]string, sections)
 	for i := byte(0); i < howMany; i++ {
-
-		// fmt.Println("sample", i, "started to be processed")
 		sampleIndex = uint16(items >> (i << 4))
 		if sampleIndex-lastIndexInSample != 0 {
 			sampledText[currentSampleIndex] = text[lastIndexInSample:sampleIndex]
