@@ -70,6 +70,7 @@ func Test_validatePagePath(t *testing.T) {
 	}
 }
 
+//nolint: dupl
 func Test_Clean_validatePagePath(t *testing.T) {
 	tests := []struct {
 		pagePath string
@@ -95,6 +96,7 @@ func Test_Clean_validatePagePath(t *testing.T) {
 	}
 }
 
+//nolint: dupl
 func Test_validatePagePath2(t *testing.T) {
 	tests := []struct {
 		pagePath string
@@ -120,6 +122,7 @@ func Test_validatePagePath2(t *testing.T) {
 	}
 }
 
+//nolint: dupl
 func Test_validatePagePath3(t *testing.T) {
 	tests := []struct {
 		pagePath string

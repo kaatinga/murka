@@ -1,5 +1,6 @@
 package murka
 
+//nolint: goimports // unknown problem
 import (
 	cerr "github.com/kaatinga/const-errs"
 	faststrconv "github.com/kaatinga/strconv"
@@ -28,7 +29,7 @@ func (length incorrectSampleLength) Is(err error) bool {
 // Highlight takes in some content and locations and then inserts left/right, strings which can be used for
 // highlighting around matching terms. For example, if you pass in "test" with sample "te", you will have
 // "<strong>te</strong>st" as return.
-func Highlight(text, left, right, sample string) (string, error) {
+func Highlight(text, left, right, sample string) (string, error) { //nolint: funlen, gocyclo
 	// if the both inserts are empty, we return the input text string
 	if len(left) == 0 && len(right) == 0 {
 		return text, nil
