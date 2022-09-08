@@ -95,8 +95,7 @@ func Test_Clean_validatePagePath(t *testing.T) { //nolint: dupl
 	}
 }
 
-//nolint: dupl
-func Test_validatePagePath2(t *testing.T) {
+func Test_validatePagePath2(t *testing.T) { //nolint: dupl
 	tests := []struct {
 		pagePath string
 		wantErr  error
@@ -121,8 +120,7 @@ func Test_validatePagePath2(t *testing.T) {
 	}
 }
 
-//nolint: dupl
-func Test_validatePagePath3(t *testing.T) {
+func Test_validatePagePath3(t *testing.T) { //nolint: dupl
 	tests := []struct {
 		pagePath string
 		wantErr  error
