@@ -4,12 +4,13 @@ package murka
 import (
 	cerr "github.com/kaatinga/const-errs"
 	faststrconv "github.com/kaatinga/strconv"
+	"math"
 	"strconv"
 	"strings"
 )
 
 const (
-	maximumSampleLength       = 1 << 8
+	maximumSampleLength       = (1 << 8) - 1
 	maximumHighlightedSamples = 1 << 2
 )
 
@@ -17,7 +18,7 @@ const (
 type incorrectSampleLength int
 
 func (length incorrectSampleLength) Error() string {
-	return "the sample length is " + strconv.Itoa(int(length)) + " what exceeds the maximum " + faststrconv.Byte2String(maximumSampleLength-1)
+	return "the sample length is " + strconv.Itoa(int(length)) + " what exceeds the maximum " + faststrconv.Byte2String(maximumSampleLength)
 }
 
 const ErrIncorrectLength = cerr.Error("the sample exceeds the maximum")
@@ -30,6 +31,9 @@ func (length incorrectSampleLength) Is(err error) bool {
 // highlighting around matching terms. For example, if you pass in "test" with sample "te", you will have
 // "<strong>te</strong>st" as return.
 func Highlight(text, left, right, sample string) (string, error) { //nolint: funlen, gocyclo
+	if len(text) > math.MaxUint16 {
+		return "", ErrTooLongString
+	}
 	// if the both inserts are empty, we return the input text string
 	if len(left) == 0 && len(right) == 0 {
 		return text, nil
@@ -39,10 +43,10 @@ func Highlight(text, left, right, sample string) (string, error) { //nolint: fun
 	// FIXME: check the maximum left length
 	// FIXME: check the maximum right length
 
-	sampleLength := uint16(len(sample))
-	if sampleLength >= maximumSampleLength {
-		return "", incorrectSampleLength(sampleLength)
+	if len(sample) >= maximumSampleLength {
+		return "", incorrectSampleLength(len(sample))
 	}
+	sampleLength := uint16(len(sample))
 
 	// stage 1: indexing
 	sampleAsRunes := []rune(sample)
