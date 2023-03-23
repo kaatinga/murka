@@ -12,6 +12,16 @@ func Validate(text string, additionalCheckers ...func(value rune) bool) error {
 	return nil
 }
 
+// ValidateOnly checks characters in the input string.
+func ValidateOnly(text string, additionalCheckers ...func(value rune) bool) error {
+	for _, value := range text {
+		if !runAdditionalChecks(value, additionalCheckers...) {
+			return ErrIncorrectCharacter
+		}
+	}
+	return nil
+}
+
 // Replace replaces incorrect characters in the input string. The default charset is a-zA-Z0-9.
 func Replace(text string, character rune, additionalCheckers ...func(value rune) bool) string {
 	// we repeat the size of the new string

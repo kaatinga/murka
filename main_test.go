@@ -177,3 +177,31 @@ func TestReplace(t *testing.T) {
 		})
 	}
 }
+
+func TestValidateOnly(t *testing.T) {
+	tests := []struct {
+		pagePath string
+		wantErr  error
+	}{
+		{"test_page", ErrIncorrectCharacter},
+		{"1", ErrIncorrectCharacter},
+		{"p1", ErrIncorrectCharacter},
+		{"az", ErrIncorrectCharacter},
+		{"AZ", ErrIncorrectCharacter},
+		{"19", ErrIncorrectCharacter},
+		{"_", nil},
+		{"TEST_PAGE", ErrIncorrectCharacter},
+		{"12345", ErrIncorrectCharacter},
+		{"test", ErrIncorrectCharacter},
+		{"ы", ErrIncorrectCharacter},
+		{"-", ErrIncorrectCharacter},
+		{".", ErrIncorrectCharacter},
+	}
+	for _, tt := range tests {
+		t.Run(tt.pagePath, func(t *testing.T) {
+			if err := ValidateOnly(tt.pagePath, CheckUnderscore); err != tt.wantErr {
+				t.Errorf("validatePagePath() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
