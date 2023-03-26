@@ -1,9 +1,48 @@
 package murka
 
 import (
+	"regexp"
 	"testing"
+	"unicode"
 	//"github.com/boyter/go-string"
 )
+
+var re = regexp.MustCompile(`^[\w]+$`)
+
+// validateByRegexp checks symbols in the input string.
+func validateByRegexp(pagePath string) error {
+	if re.MatchString(pagePath) {
+		return nil
+	}
+
+	return ErrIncorrectCharacter
+}
+
+// validateByUnicode checks symbols in the input string.
+func validateByUnicode(pagePath string) error {
+	for _, value := range pagePath {
+		if !unicode.IsOneOf(ranges, value) {
+			return ErrIncorrectCharacter
+		}
+	}
+	return nil
+}
+
+// range tables for a-zA-Z0-9
+var ranges = []*unicode.RangeTable{
+	{R16: []unicode.Range16{
+		{0x61, 0x7a, 1},
+	}},
+	{R16: []unicode.Range16{
+		{0x41, 0x5a, 1},
+	}},
+	{R16: []unicode.Range16{
+		{0x30, 0x39, 1},
+	}},
+	{R16: []unicode.Range16{
+		{0x5f, 0x5f, 1},
+	}},
+}
 
 //// nolint
 //func BenchmarkValidate(b *testing.B) {
@@ -38,14 +77,22 @@ import (
 //	}
 //}
 
-// func BenchmarkReplace(b *testing.B) {
-//
-//	b.ReportAllocs()
-//	for i := 0; i < b.N; i++ {
-//		Replace("tes:t", '_')
-//		Replace("12:3:45", '_')
-//	}
-// }
+func BenchmarkReplace(b *testing.B) {
+	b.ReportAllocs()
+	for i := 0; i < b.N; i++ {
+		Replace("tes:t", '_')
+		Replace("12:3:45", '_')
+	}
+}
+
+func BenchmarkReplaceOld(b *testing.B) {
+	b.ReportAllocs()
+	for i := 0; i < b.N; i++ {
+		ReplaceOld("tes:t", '_')
+		ReplaceOld("12:3:45", '_')
+	}
+}
+
 //
 // func BenchmarkReplaceNotAz09(b *testing.B) {
 //
@@ -56,15 +103,15 @@ import (
 //	}
 //}
 //
-// func BenchmarkStringsReplace(b *testing.B) {
+//func BenchmarkStringsReplace(b *testing.B) {
 //	b.ReportAllocs()
 //	for i := 0; i < b.N; i++ {
 //		strings.ReplaceAll("tes:t", ":", "_")
 //		strings.ReplaceAll("12:3:45", ":", "_")
 //	}
 //}
-//
-// var legalCharacters1 = func(value rune) rune {
+
+//var legalCharacters1 = func(value rune) rune {
 //	if !(value >= 0x61 && value <= 0x7A || // lowercase
 //		value >= 0x41 && value <= 0x5A || // uppercase
 //		value >= 0x30 && value <= 0x39) {
@@ -83,17 +130,17 @@ import (
 //	}
 // }
 
-//nolint
-func BenchmarkHighlight(b *testing.B) {
-
-	b.ReportAllocs()
-	for i := 0; i < b.N; i++ {
-		Highlight("test string", "<b>", "</b>", "str")
-		Highlight("mamase", "<b>", "</b>", "mas")
-		Highlight("mase", "<b>", "</b>", "mas")
-		Highlight("mase", "<b>", "</b>", "ggg")
-	}
-}
+// nolint
+//func BenchmarkHighlight(b *testing.B) {
+//
+//	b.ReportAllocs()
+//	for i := 0; i < b.N; i++ {
+//		Highlight("test string", "<b>", "</b>", "str")
+//		Highlight("mamase", "<b>", "</b>", "mas")
+//		Highlight("mase", "<b>", "</b>", "mas")
+//		Highlight("mase", "<b>", "</b>", "ggg")
+//	}
+//}
 
 //func BenchmarkGoString(b *testing.B) {
 //
