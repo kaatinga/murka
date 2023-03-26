@@ -44,17 +44,16 @@ var ranges = []*unicode.RangeTable{
 	}},
 }
 
-// // nolint
-// func BenchmarkValidate(b *testing.B) {
-//
-//		b.ReportAllocs()
-//		for i := 0; i < b.N; i++ {
-//			Validate("test")
-//			Validate("12345")
-//			Validate("TEST_PAGE", CheckUnderscore)
-//		}
-//	}
-//
+// nolint
+func BenchmarkValidate(b *testing.B) {
+	b.ReportAllocs()
+	for i := 0; i < b.N; i++ {
+		Validate("test")
+		Validate("12345")
+		Validate("TEST_PAGE", CheckUnderscore)
+	}
+}
+
 // nolint
 func BenchmarkValidateByRegexp(b *testing.B) {
 	b.ReportAllocs()
