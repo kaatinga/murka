@@ -35,7 +35,7 @@ func Test_validate(t *testing.T) {
 	}
 }
 
-func Test_pure_validate(t *testing.T) { //nolint: dupl
+func Test_pure_validate(t *testing.T) {
 	tests := caseTemplates
 	tests[0].wantErr = ErrIncorrectCharacter
 	tests[1].wantErr = ErrIncorrectCharacter
