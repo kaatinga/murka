@@ -37,19 +37,6 @@ func Replace[I ~string | []rune](it I, character rune, additionalCheckers ...fun
 	return string(newString)
 }
 
-func ReplaceOld(it string, character rune, additionalCheckers ...func(value rune) bool) string {
-	// we repeat the size of the new string
-	var newString = []rune(it)
-	for i := 0; i < len(newString); i++ {
-		if !(newString[i]|0x20 >= 0x61 && newString[i]|0x20 <= 0x7A || // english letters
-			newString[i] >= 0x30 && newString[i] <= 0x39 || // digits
-			runAdditionalChecks(newString[i], additionalCheckers...)) {
-			newString[i] = character
-		}
-	}
-	return string(newString)
-}
-
 // ReplaceNotaZ09 replaces not a-zA-Z0-9 characters in the input string ny in input character.
 // The most efficient way to sanitize a string using a-zA-Z0-9<character> pattern.
 func ReplaceNotaZ09[I ~string | []rune](it I, character rune) string {
