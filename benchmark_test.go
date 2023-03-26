@@ -44,8 +44,7 @@ var ranges = []*unicode.RangeTable{
 	}},
 }
 
-// nolint
-func BenchmarkValidate(b *testing.B) {
+func BenchmarkValidate(b *testing.B) { //nolint
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		Validate("test")
@@ -54,8 +53,7 @@ func BenchmarkValidate(b *testing.B) {
 	}
 }
 
-// nolint
-func BenchmarkValidateByRegexp(b *testing.B) {
+func BenchmarkValidateByRegexp(b *testing.B) { //nolint
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		validateByRegexp("test")
@@ -64,8 +62,7 @@ func BenchmarkValidateByRegexp(b *testing.B) {
 	}
 }
 
-// nolint
-func BenchmarkValidateByUnicode(b *testing.B) {
+func BenchmarkValidateByUnicode(b *testing.B) { //nolint
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		validateByUnicode("test")
