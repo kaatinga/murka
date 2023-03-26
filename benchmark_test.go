@@ -44,30 +44,30 @@ var ranges = []*unicode.RangeTable{
 	}},
 }
 
-func BenchmarkValidate(b *testing.B) { //nolint: errcheck
+func BenchmarkValidate(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
-		Validate("test")
-		Validate("12345")
-		Validate("TEST_PAGE", CheckUnderscore)
+		Validate("test")                       //nolint: errcheck
+		Validate("12345")                      //nolint: errcheck
+		Validate("TEST_PAGE", CheckUnderscore) //nolint: errcheck
 	}
 }
 
-func BenchmarkValidateByRegexp(b *testing.B) { //nolint: errcheck
+func BenchmarkValidateByRegexp(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
-		validateByRegexp("test")
-		validateByRegexp("12345")
-		validateByRegexp("TEST_PAGE")
+		validateByRegexp("test")      //nolint: errcheck
+		validateByRegexp("12345")     //nolint: errcheck
+		validateByRegexp("TEST_PAGE") //nolint: errcheck
 	}
 }
 
-func BenchmarkValidateByUnicode(b *testing.B) { //nolint: errcheck
+func BenchmarkValidateByUnicode(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
-		validateByUnicode("test")
-		validateByUnicode("12345")
-		validateByUnicode("TEST_PAGE")
+		validateByUnicode("test")      //nolint: errcheck
+		validateByUnicode("12345")     //nolint: errcheck
+		validateByUnicode("TEST_PAGE") //nolint: errcheck
 	}
 }
 
