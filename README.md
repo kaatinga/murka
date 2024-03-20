@@ -1,3 +1,4 @@
+[![Tests](https://github.com/kaatinga/luna/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/kaatinga/luna/actions/workflows/test.yml)
 [![GitHub release](https://img.shields.io/github/release/kaatinga/murka.svg)](https://github.com/kaatinga/murka/releases)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/kaatinga/murka/blob/main/LICENSE)
 [![codecov](https://codecov.io/gh/kaatinga/murka/branch/main/graph/badge.svg)](https://codecov.io/gh/kaatinga/murka)
@@ -75,4 +76,4 @@ BenchmarkStringsReplace
 BenchmarkStringsReplace-8   	 9212074	       133.3 ns/op	      16 B/op	       2 allocs/op
 BenchmarkStringsMap
 BenchmarkStringsMap-8       	 8836887	       130.8 ns/op	      32 B/op	       2 allocs/op
-```[![Tests](https://github.com/kaatinga/luna/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/kaatinga/luna/actions/workflows/test.yml)
+```
