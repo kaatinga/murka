@@ -75,4 +75,4 @@ BenchmarkStringsReplace
 BenchmarkStringsReplace-8   	 9212074	       133.3 ns/op	      16 B/op	       2 allocs/op
 BenchmarkStringsMap
 BenchmarkStringsMap-8       	 8836887	       130.8 ns/op	      32 B/op	       2 allocs/op
-```
+```[![Tests](https://github.com/kaatinga/luna/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/kaatinga/luna/actions/workflows/test.yml)
