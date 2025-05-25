@@ -74,7 +74,7 @@ func TestReplace(t *testing.T) {
 
 			got = ReplaceNonAlphanumeric(tt.text, tt.character)
 			if got != tt.want {
-				t.Errorf("ReplaceNotaZ09() got = %v, want %v", got, tt.want)
+				t.Errorf("ReplaceNonAlphanumeric() got = %v, want %v", got, tt.want)
 			}
 		})
 	}

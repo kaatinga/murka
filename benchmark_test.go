@@ -80,12 +80,12 @@ func BenchmarkValidateByUnicode(b *testing.B) {
 //}
 
 //
-// func BenchmarkReplaceNotAz09(b *testing.B) {
+// func BenchmarkReplaceNonAlphanumeric(b *testing.B) {
 //
 //	b.ReportAllocs()
 //	for i := 0; i < b.N; i++ {
-//		ReplaceNotaZ09("tes:t", '_')
-//		ReplaceNotaZ09("12:3:45", '_')
+//		ReplaceNonAlphanumeric("tes:t", '_')
+//		ReplaceNonAlphanumeric("12:3:45", '_')
 //	}
 //}
 //
