@@ -1,52 +1,57 @@
 package murka
 
-// Validate checks characters in the input string. The most efficient way to sanitize a string using a-zA-Z0-9 pattern.
-// a-zA-Z0-9 is the default pattern, but you can add your own patterns.
-func Validate[I ~string](it I, additionalCheckers ...func(value rune) bool) error {
-	for _, value := range it {
-		if !(value|0x20 >= 0x61 && value|0x20 <= 0x7A || // english letters
-			value >= 0x30 && value <= 0x39 || // digits
-			runAdditionalChecks(value, additionalCheckers...)) {
+// Validate checks if all characters in the input string match the a-zA-Z0-9 pattern.
+// Additional character validation can be provided through custom checker functions.
+// Returns ErrIncorrectCharacter if any character doesn't match the pattern.
+func Validate[I ~string](input I, additionalCheckers ...func(value rune) bool) error {
+	for _, char := range input {
+		if !(isAlphanumeric(char) || runAdditionalChecks(char, additionalCheckers...)) {
 			return ErrIncorrectCharacter
 		}
 	}
 	return nil
 }
 
-// ValidateOnly checks characters in the input string.
-func ValidateOnly[I ~string](it I, additionalCheckers ...func(value rune) bool) error {
-	for _, value := range it {
-		if !runAdditionalChecks(value, additionalCheckers...) {
+// ValidateOnly checks if all characters in the input string match only the provided
+// character validation functions. Returns ErrIncorrectCharacter if any character
+// doesn't pass the provided validators.
+func ValidateOnly[I ~string](input I, validators ...func(value rune) bool) error {
+	for _, char := range input {
+		if !runAdditionalChecks(char, validators...) {
 			return ErrIncorrectCharacter
 		}
 	}
 	return nil
 }
 
-// Replace checks characters in the input string.
-func Replace[I ~string | []rune](it I, character rune, additionalCheckers ...func(value rune) bool) string {
-	// we repeat the size of the new string
-	var newString = []rune(it)
-	for i := 0; i < len(newString); i++ {
-		if !(newString[i]|0x20 >= 0x61 && newString[i]|0x20 <= 0x7A || // english letters
-			newString[i] >= 0x30 && newString[i] <= 0x39 || // digits
-			runAdditionalChecks(newString[i], additionalCheckers...)) {
-			newString[i] = character
+// Replace substitutes characters that don't match the a-zA-Z0-9 pattern
+// or additional validators with the specified replacement character.
+// Returns the modified string.
+func Replace[I ~string | []rune](input I, replacementChar rune, additionalCheckers ...func(value rune) bool) string {
+	chars := []rune(input)
+	for i := 0; i < len(chars); i++ {
+		if !(isAlphanumeric(chars[i]) || runAdditionalChecks(chars[i], additionalCheckers...)) {
+			chars[i] = replacementChar
 		}
 	}
-	return string(newString)
+	return string(chars)
 }
 
-// ReplaceNotaZ09 replaces not a-zA-Z0-9 characters in the input string ny in input character.
-// The most efficient way to sanitize a string using a-zA-Z0-9<character> pattern.
-func ReplaceNotaZ09[I ~string | []rune](it I, character rune) string {
-	// we repeat the size of the new string
-	var newString = []rune(it)
-	for i := 0; i < len(newString); i++ {
-		if !(newString[i]|0x20 >= 0x41|0x20 && newString[i] <= 0x5A|0x20 || // english letters
-			newString[i] >= 0x30 && newString[i] <= 0x39) { // digits
-			newString[i] = character
+// ReplaceNonAlphanumeric replaces all non-alphanumeric characters (not a-zA-Z0-9)
+// in the input string with the specified replacement character.
+// Provides an efficient way to sanitize a string to contain only alphanumeric characters.
+func ReplaceNonAlphanumeric[I ~string | []rune](input I, replacementChar rune) string {
+	chars := []rune(input)
+	for i := 0; i < len(chars); i++ {
+		if !isAlphanumeric(chars[i]) {
+			chars[i] = replacementChar
 		}
 	}
-	return string(newString)
+	return string(chars)
+}
+
+// isAlphanumeric checks if a character is an English letter (a-zA-Z) or a digit (0-9).
+func isAlphanumeric(char rune) bool {
+	return (char|0x20 >= 'a' && char|0x20 <= 'z') || // English letters (case-insensitive)
+		(char >= '0' && char <= '9') // Digits
 }
