@@ -1,3 +1,5 @@
+# murka
+
 [![Tests](https://github.com/kaatinga/murka/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/kaatinga/murka/actions/workflows/test.yml)
 [![GitHub release](https://img.shields.io/github/release/kaatinga/murka.svg)](https://github.com/kaatinga/murka/releases)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/kaatinga/murka/blob/main/LICENSE)
@@ -5,67 +7,79 @@
 [![lint workflow](https://github.com/kaatinga/murka/actions/workflows/golangci-lint.yml/badge.svg)](https://github.com/kaatinga/murka/actions?query=workflow%3Alinter)
 [![help wanted](https://img.shields.io/badge/Help%20wanted-True-yellow.svg)](https://github.com/kaatinga/murka/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22)
 
-# murka
+A high-performance Go package for string validation and sanitization. Murka provides lightning-fast character validation and replacement functions, significantly outperforming standard Go libraries.
 
-A high performance string validator and string sanitizer. The package is intended for checking incorrect characters' existence in a string.
-`Validate()` is 20 times faster than regexp package and 10 times faster than unicode package.
+## Key Features
 
-## 1. Installation
+- **Blazing Fast**: Up to 20x faster than the standard regexp package and 10x faster than the unicode package
+- **Zero Allocations**: Core validation functions allocate no memory
+- **Customizable**: Easily extend with your own character validation functions
+- **Dual Functionality**: Both validation and sanitization capabilities
 
-Use go get.
+## Installation
 
-	go get github.com/kaatinga/murka
+    bash go get github.com/kaatinga/murka
 
-Then import the validator package into your own code.
+Then import the package into your code:
 
-	import "github.com/kaatinga/murka"
+    import "github.com/kaatinga/murka"
 
-## 2. How to use
+## Usage Guide
 
-### Validation
+### String Validation
 
-By default, `Validate()` checks only a-z, A-z and 0-9 characters. Additional checks are done by functions that comply
-with `func (value rune) bool`.
+Murka's validation functions check if a string contains only specified characters. By default, `Validate()` allows only alphanumeric characters (a-z, A-Z, 0-9).
 
-Prepare an additional function like this:
+#### Basic Validation
 
 ```go
-// CheckUnderscore checks underscore character.
-func CheckUnderscore(value rune) bool {
-    return value == 0x5f
-}
+    text := "Hello123"
+	err := murka.Validate(text)
+	if err != nil {
+		// Handle invalid characters
+	}
 ```
 
-After that you can call `Validate()`.
+#### Custom Validation
+
+Extend validation by providing custom character check functions:
 
 ```go
-err := murka.Validate(text, CheckUnderscore)
+// CheckUnderscore allows underscore character func CheckUnderscore(value rune) bool { return value == '_' // or 0x5f in hex }
+// CheckHyphen allows hyphen character func CheckHyphen(value rune) bool { return value == '-' }
+// Now validate with multiple character sets
+text := "user_name-123"
+err := murka.Validate(text, CheckUnderscore, CheckHyphen)
 if err != nil {
-    return err
+	// Handle invalid characters
 }
 ```
 
-Benchmarks:
+### String Sanitization
 
+Murka provides functions to clean strings by replacing unwanted characters.
+
+#### Replace with Custom Rules
+
+```go
+// Allow alphanumeric characters and underscores, replace others with '-'
+sanitized := murka.Replace(text, '-', CheckUnderscore)
 ```
-BenchmarkValidate
-BenchmarkValidate-8    	        45240508	       26.35 ns/op	       0 B/op	       0 allocs/op
-BenchmarkValidateByRegexp
-BenchmarkValidateByRegexp-8    	 2072374	       578.2 ns/op	       0 B/op	       0 allocs/op
-BenchmarkValidateByUnicode
-BenchmarkValidateByUnicode-8   	 4360131	       272.8 ns/op	       0 B/op	       0 allocs/op
+
+#### Efficient Replacement
+
+For maximum performance when you only want to keep alphanumeric characters:
+
+```go
+// Replace everything except a-z, A-Z, 0-9 with '-'
+sanitized := murka.ReplaceNonAlphanumeric(text, '-')
 ```
 
-### String sanitization
+## Performance
 
-`Replace()` checks only a-z, A-z and 0-9 characters by default. Like with `Validate()`, additional checks are done by
-functions that comply with `func (value rune) bool`. `Replace()` does not return any error, but substitute incorrect
-characters with the input character of rune type. There is no sense to use this function without an additional checker.
+Murka is optimized for high-performance validation and sanitization with minimal memory usage.
 
-`ReplaceNotaZ09()` replaces all characters except a-z, A-z and 0-9. The most efficient way to sanitize a string using
-a-zA-Z0-9<input character> pattern.
-
-Benchmarks:
+### Benchmarks
 
 ```
 BenchmarkReplace
@@ -77,3 +91,18 @@ BenchmarkStringsReplace-8   	 9212074	       133.3 ns/op	      16 B/op	       2 
 BenchmarkStringsMap
 BenchmarkStringsMap-8       	 8836887	       130.8 ns/op	      32 B/op	       2 allocs/op
 ```
+
+## Use Cases
+
+- Input validation for usernames, file names, or other string fields
+- Sanitizing user input before database storage
+- Normalizing strings for consistent format
+- High-performance text processing pipelines
+
+## Contributing
+
+Contributions are welcome! Check out the [help wanted](https://github.com/kaatinga/murka/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) issues to get started.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/kaatinga/murka/blob/main/LICENSE) file for details.
