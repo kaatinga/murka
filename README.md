@@ -82,14 +82,29 @@ Murka is optimized for high-performance validation and sanitization with minimal
 ### Benchmarks
 
 ```
+cpu: Apple M1
+BenchmarkValidate
+BenchmarkValidate-8            	30313746	        39.66 ns/op	       0 B/op	       0 allocs/op
+BenchmarkValidateByRegexp
+BenchmarkValidateByRegexp-8    	 2548946	       479.5 ns/op	       0 B/op	       0 allocs/op
+BenchmarkValidateByUnicode
+BenchmarkValidateByUnicode-8   	 4465455	       268.1 ns/op	       0 B/op	       0 allocs/op
+```
+
+```
+cpu: Apple M1
 BenchmarkReplace
-BenchmarkReplace-8          	 5310733	       229.0 ns/op	      24 B/op	       2 allocs/op
-BenchmarkReplaceNotAz09
-BenchmarkReplaceNotAz09-8   	 9882952	       116.8 ns/op	       0 B/op	       0 allocs/op
+BenchmarkReplace-8                  	 6680472	       235.4 ns/op	      24 B/op	       2 allocs/op
+BenchmarkReplaceNonAlphanumeric
+BenchmarkReplaceNonAlphanumeric-8   	10234512	       117.0 ns/op	       0 B/op	       0 allocs/op
 BenchmarkStringsReplace
-BenchmarkStringsReplace-8   	 9212074	       133.3 ns/op	      16 B/op	       2 allocs/op
+BenchmarkStringsReplace-8           	 9784203	       122.7 ns/op	      16 B/op	       2 allocs/op
 BenchmarkStringsMap
-BenchmarkStringsMap-8       	 8836887	       130.8 ns/op	      32 B/op	       2 allocs/op
+BenchmarkStringsMap-8               	10400167	       114.4 ns/op	      32 B/op	       2 allocs/op
+BenchmarkHighlight
+BenchmarkHighlight-8                	 2561349	       518.8 ns/op	     296 B/op	       6 allocs/op
+BenchmarkGoString
+BenchmarkGoString-8                 	 1342380	       891.6 ns/op	     232 B/op	      14 allocs/op
 ```
 
 ## Use Cases
