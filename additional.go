@@ -2,7 +2,8 @@ package murka
 
 // CheckUnderscore checks underscore character.
 func CheckUnderscore(value rune) bool {
-	return value == 0x5f
+	const underscore = '_'
+	return value == underscore
 }
 
 // runAdditionalChecks uses additional functions to check input string.
