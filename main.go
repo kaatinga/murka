@@ -5,7 +5,7 @@ package murka
 // Returns ErrIncorrectCharacter if any character doesn't match the pattern.
 func Validate[I ~string](input I, additionalCheckers ...func(value rune) bool) error {
 	for _, char := range input {
-		if !(isAlphanumeric(char) || runAdditionalChecks(char, additionalCheckers...)) {
+		if !isAlphanumeric(char) && !runAdditionalChecks(char, additionalCheckers...) {
 			return ErrIncorrectCharacter
 		}
 	}
@@ -30,7 +30,7 @@ func ValidateOnly[I ~string](input I, validators ...func(value rune) bool) error
 func Replace[I ~string | ~[]rune](input I, replacementChar rune, additionalCheckers ...func(value rune) bool) string {
 	chars := []rune(input)
 	for i := 0; i < len(chars); i++ {
-		if !(isAlphanumeric(chars[i]) || runAdditionalChecks(chars[i], additionalCheckers...)) {
+		if !isAlphanumeric(chars[i]) && !runAdditionalChecks(chars[i], additionalCheckers...) {
 			chars[i] = replacementChar
 		}
 	}

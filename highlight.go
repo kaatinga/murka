@@ -2,10 +2,7 @@ package murka
 
 //nolint: goimports // unknown problem
 import (
-	cerr "github.com/kaatinga/const-errs"
-	faststrconv "github.com/kaatinga/strconv"
 	"math"
-	"strconv"
 	"strings"
 )
 
@@ -13,19 +10,6 @@ const (
 	maximumSampleLength       = (1 << 8) - 1
 	maximumHighlightedSamples = 1 << 2
 )
-
-// incorrectSampleLength is used to compose error in case the sample is too long
-type incorrectSampleLength int
-
-func (length incorrectSampleLength) Error() string {
-	return "the sample length is " + strconv.Itoa(int(length)) + " what exceeds the maximum " + faststrconv.Byte2String(maximumSampleLength)
-}
-
-const ErrIncorrectLength = cerr.Error("the sample exceeds the maximum")
-
-func (length incorrectSampleLength) Is(err error) bool {
-	return err == ErrIncorrectLength
-}
 
 // Highlight takes in some content and locations and then inserts left/right, strings which can be used for
 // highlighting around matching terms. For example, if you pass in "test" with sample "te", you will have
@@ -75,53 +59,51 @@ func Highlight(text, left, right, sample string) (string, error) { //nolint: fun
 			continue
 		}
 
-		if sampleFound {
-			if value != sampleAsRunes[currentSampleIndex] {
-				if value == sampleAsRunes[0] {
-					// fmt.Println("beginning found", string([]rune{value}))
-					currentSampleIndex = 1
-					sampleIndex = uint16(key)
-					// fmt.Println("sampleIndex", sampleIndex)
-					continue
-				}
-
-				currentSampleIndex = 0
-				sampleFound = false
-				// fmt.Println("it was not sample", string([]rune{value}), string([]rune{sampleAsRunes[currentSampleIndex]}))
+		if value != sampleAsRunes[currentSampleIndex] {
+			if value == sampleAsRunes[0] {
+				// fmt.Println("beginning found", string([]rune{value}))
+				currentSampleIndex = 1
+				sampleIndex = uint16(key)
+				// fmt.Println("sampleIndex", sampleIndex)
 				continue
 			}
 
-			if value == sampleAsRunes[lastSampleIndex] {
-				currentSampleIndex = 0
-				sampleFound = false
-				items |= uint64(sampleIndex) << (howMany << 4)
-				lastIndexInSample = uint16(key)
-
-				// count number of sections
-				if sampleIndex-lastIndexInSample > 1 {
-					sections++
-					// fmt.Println("gap detected")
-				}
-				sections += 3
-
-				// fmt.Println("last character found", string([]rune{value}))
-				// fmt.Printf("indexes, %b\n", items)
-
-				// the maximum of samples is reached
-				if howMany == maximumHighlightedSamples {
-					// fmt.Println("maximum reached")
-					break
-				}
-
-				// continue to seek samples
-				howMany++
-				// fmt.Println("found items", howMany)
-				continue
-			}
-
-			currentSampleIndex++
-			// fmt.Println("next character found", string([]rune{value}))
+			currentSampleIndex = 0
+			sampleFound = false
+			// fmt.Println("it was not sample", string([]rune{value}), string([]rune{sampleAsRunes[currentSampleIndex]}))
+			continue
 		}
+
+		if value == sampleAsRunes[lastSampleIndex] {
+			currentSampleIndex = 0
+			sampleFound = false
+			items |= uint64(sampleIndex) << (howMany << 4)
+			lastIndexInSample = uint16(key)
+
+			// count number of sections
+			if sampleIndex-lastIndexInSample > 1 {
+				sections++
+				// fmt.Println("gap detected")
+			}
+			sections += 3
+
+			// fmt.Println("last character found", string([]rune{value}))
+			// fmt.Printf("indexes, %b\n", items)
+
+			// the maximum of samples is reached
+			if howMany == maximumHighlightedSamples {
+				// fmt.Println("maximum reached")
+				break
+			}
+
+			// continue to seek samples
+			howMany++
+			// fmt.Println("found items", howMany)
+			continue
+		}
+
+		currentSampleIndex++
+		// fmt.Println("next character found", string([]rune{value}))
 	}
 
 	if sections == 0 {
